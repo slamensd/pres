@@ -15,6 +15,21 @@ body {
     text-align: center;
 }
 
+.slide .prev {
+    position: absolute;
+    top: -40px;
+    left: 0;
+}
+
+.question-log {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+
 form {
     flex-basis: 25%;
     padding: 20px;
