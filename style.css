@@ -10,7 +10,7 @@ body {
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    text-align: left;  /* Add this line */
+    text-align: left;
 }
 
 .header {
@@ -72,7 +72,7 @@ body {
     background-color: #0c948b;
 }
 
-.prev {
+.slide-container .prev {
     position: absolute;
     top: 5px;
     left: 5px;
