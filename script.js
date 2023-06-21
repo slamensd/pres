@@ -4,9 +4,9 @@ const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
-let slides = Array.from({ length: 12 }, (_, i) => ({
-    src: `slides/Slide${i + 1}.png`,
-    caption: `Slide ${i + 1}`,
+let slides = Array.from({ length: 13 }, (_, i) => ({
+    src: i === 0 ? '' : `slides/Slide${i}.png`,
+    caption: `Slide ${i}`,
     status: "unlocked"
 }));
 
@@ -15,12 +15,11 @@ let twitterAccount = '';
 const createForm = (slideIndex) => {
     const form = document.createElement('form');
     form.innerHTML = `
-        ${slideIndex === 0 ? '<input type="text" name="twitter" id="twitter-input" placeholder="Your Twitter Account" required>' : ''}
-        <textarea name="question" placeholder="Your Question"></textarea>
+        ${slideIndex === 0 ? '<input type="text" name="twitter" id="twitter-input" placeholder="Your Twitter Account" required>' : '<textarea name="question" placeholder="Your Question"></textarea>'}
         <div class="buttons">
             ${slideIndex > 0 ? '<button type="button" class="prev" data-slide="'+slideIndex+'">Previous</button>' : ''}
-            <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
-            <button type="submit" data-slide="${slideIndex}">Submit</button>
+            ${slideIndex === 0 ? '' : '<button type="button" class="skip" data-slide="${slideIndex}">Skip</button>'}
+            <button type="submit" data-slide="${slideIndex}">${slideIndex === 0 ? 'Get Started' : 'Submit'}</button>
         </div>
     `;
     form.onsubmit = async (event) => {
@@ -29,7 +28,7 @@ const createForm = (slideIndex) => {
         if (twitter) {
             twitterAccount = twitter.value;
         }
-        if (twitterAccount) {
+        if (twitterAccount && question) {
             await submitQuestion(slideIndex, twitterAccount, question.value);
             event.target.reset();
         }
@@ -46,8 +45,9 @@ const createSlide = (slideData, index) => {
     const slide = document.createElement('div');
     slide.className = 'slide-container';
     slide.innerHTML = `
+        ${index !== 0 ? '<button class="prev" data-slide="'+index+'">Previous</button>' : ''}
         <div class="slide">
-            <img src="${slideData.src}" alt="Slide">
+            ${index !== 0 ? '<img src="'+slideData.src+'" alt="Slide">' : ''}
             <p>${slideData.caption}</p>
         </div>
     `;
@@ -60,7 +60,7 @@ const submitQuestion = async (slideIndex, twitter, question) => {
         "records": [
             {
                 "fields": {
-                    "Slide": `Slide ${slideIndex + 1}`,
+                    "Slide": `Slide ${slideIndex}`,
                     "Twitter": twitter,
                     "Question": question
                 }

@@ -8,9 +8,6 @@ body {
     align-items: center;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    background-color: #f3f3f3;
 }
 
 .slide {
@@ -55,4 +52,7 @@ button.skip {
 
 button.prev {
     background-color: #7f8c8d;
+    position: absolute;
+    top: 15px;
+    left: 15px;
 }
