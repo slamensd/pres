@@ -1,16 +1,34 @@
 body {
     font-family: Arial, sans-serif;
     max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background-color: #4b6cb7;
+    width: 100%;
+    padding: 20px 0;
+    color: #fff;
+    text-align: center;
 }
 
 .slide-container {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
+    width: 90%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
 .slide, .form-container {
-    width: 75%;
+    width: 70%;
 }
 
 .slide img {
@@ -19,9 +37,8 @@ body {
 }
 
 .form-container {
-    width: 25%;
+    width: 30%;
     padding: 20px;
-    border-left: 1px solid #ddd;
 }
 
 input, textarea, button {
@@ -31,4 +48,9 @@ input, textarea, button {
 
 button {
     padding: 10px;
+    margin-right: 10px;
+}
+
+button:last-child {
+    margin-right: 0;
 }
