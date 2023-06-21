@@ -2,6 +2,15 @@ body {
     font-family: Arial, sans-serif;
   }
   
+  .header {
+    background-color: #0da6ba;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
   .slide-container,
   .slide {
     justify-content: center;
