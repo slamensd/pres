@@ -4,7 +4,8 @@ const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
-let slides = []; // Array to hold slide data
+let slides = [];
+let questions = [];
 
 let twitterAccount = '';
 
@@ -62,6 +63,17 @@ const createSlide = (slideData, index) => {
   return slide;
 };
 
+const createQuestionEntry = (questionData) => {
+  const questionEntry = document.createElement('div');
+  questionEntry.className = 'question-entry';
+  questionEntry.innerHTML = `
+    <p class="question-text">${questionData.question}</p>
+    <p class="twitter-handle">Twitter: ${questionData.twitter}</p>
+    <p class="slide-number">Slide: ${questionData.slide}</p>
+  `;
+  return questionEntry;
+};
+
 const submitQuestion = async (slideIndex, twitter, question) => {
   const data = {
     records: [
@@ -99,13 +111,12 @@ const showPreviousSlide = (index) => {
   }
 };
 
-const updateSlides = () => {
-  const container = document.getElementById('slides-container');
-  container.innerHTML = '';
-  slides.forEach((slideData, index) => {
-    const slide = createSlide(slideData, index);
-    slide.style.display = index === 0 ? 'flex' : 'none';
-    container.appendChild(slide);
+const showQuestions = () => {
+  const questionsContainer = document.getElementById('questions-container');
+  questionsContainer.innerHTML = '';
+  questions.forEach((questionData) => {
+    const questionEntry = createQuestionEntry(questionData);
+    questionsContainer.appendChild(questionEntry);
   });
 };
 
@@ -124,4 +135,26 @@ const fetchSlides = async () => {
   }
 };
 
+const fetchQuestions = async () => {
+  try {
+    const response = await fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
+      headers: headers,
+    });
+    if (response.ok) {
+      const data = await response.json();
+      questions = data.records.map((record) => ({
+        question: record.fields.Question,
+        twitter: record.fields.Twitter,
+        slide: record.fields.Slide,
+      }));
+      showQuestions();
+    } else {
+      console.error('Failed to fetch questions data');
+    }
+  } catch (error) {
+    console.error('An error occurred while fetching questions data', error);
+  }
+};
+
 fetchSlides();
+fetchQuestions();
