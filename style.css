@@ -1,50 +1,51 @@
+/* styles.css */
+
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     font-family: Arial, sans-serif;
-    background-color: #fafafa;
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: #0da6ba;
-    height: 80px;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: left;  /* Add this line */
+}
+
+.header {
     width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    height: 80px;
+    background-color: #0da6ba;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .slide-container {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
     width: 80%;
-    margin: 20px auto;
-    position: relative;
 }
 
 .slide {
     width: 100%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .slide img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
-    border-radius: 10px;
-    margin-bottom: 20px;
+}
+
+.slide p {
+    margin-top: 10px;
 }
 
 .form-container {
@@ -53,46 +54,37 @@ header {
 }
 
 .buttons {
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
 }
 
 .button {
     padding: 10px 20px;
-    background-color: #0da6ba;
-    color: #fff;
     border: none;
     border-radius: 5px;
+    background-color: #0da6ba;
+    color: #ffffff;
     cursor: pointer;
-    transition: 0.3s all;
 }
 
 .button:hover {
-    background-color: #0b8a95;
+    background-color: #0c948b;
 }
 
-.slide .prev {
+.prev {
     position: absolute;
-    top: -40px;
-    left: 0;
-    padding: 10px 20px;
-    background-color: #0da6ba;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s all;
-}
-
-.slide .prev:hover {
-    background-color: #0b8a95;
+    top: 5px;
+    left: 5px;
 }
 
 .question-log {
-    max-height: 150px;
-    overflow-y: auto;
-    margin-top: 20px;
+    width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.question-log p {
+    margin: 5px 0;
 }
