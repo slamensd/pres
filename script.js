@@ -20,9 +20,11 @@ const createForm = (slideIndex) => {
       <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
     ` : `
       <textarea name="question" placeholder="Your Question"></textarea>
-      <button type="button" class="prev" data-slide="${slideIndex}">Previous</button>
-      <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
-      <button type="submit" data-slide="${slideIndex}">Submit</button>
+      <div class="buttons">
+        <button type="button" class="prev" data-slide="${slideIndex}">Previous</button>
+        <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
+        <button type="submit" data-slide="${slideIndex}">Submit</button>
+      </div>
     `}
   `;
   form.onsubmit = async (event) => {
@@ -52,7 +54,6 @@ const createSlide = (slideData, index) => {
   const slide = document.createElement('div');
   slide.className = 'slide-container';
   slide.innerHTML = `
-    ${index !== 0 ? '<button class="prev" data-slide="'+index+'">Previous</button>' : ''}
     <div class="slide">
       ${index !== 0 ? `<img src="slides/Slide${index}.png" alt="Slide ${index}">` : ''}
       <h2>${slideData.caption}</h2>
