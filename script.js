@@ -11,16 +11,21 @@ let twitterAccount = '';
 
 const createForm = (slideIndex) => {
   const form = document.createElement('form');
+  form.className = 'slide-form';
   form.innerHTML = `
     ${slideIndex === 0 ? `
-      <h2 class="headline">Explore the Frensville Ecosystem</h2>
-      <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
-      <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
+      <div class="slide-content">
+        <h2 class="headline">Explore the Frensville Ecosystem</h2>
+        <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
+        <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
+      </div>
     ` : `
-      <h2 class="slide-title">${slides[slideIndex].title}</h2>
-      <p class="slide-description">${slides[slideIndex].description}</p>
-      <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].title}</label>
-      <textarea name="question" id="question" placeholder="Your Question"></textarea>
+      <div class="slide-content">
+        <h2 class="slide-title">${slides[slideIndex].title}</h2>
+        <p class="slide-description">${slides[slideIndex].description}</p>
+        <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].title}</label>
+        <textarea name="question" id="question" placeholder="Your Question"></textarea>
+      </div>
       <div class="buttons">
         <button type="button" class="prev" data-slide="${slideIndex}">Previous</button>
         <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
