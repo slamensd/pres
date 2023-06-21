@@ -4,11 +4,7 @@ const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
-let slides = Array.from({ length: 13 }, (_, i) => ({
-  caption: `Slide ${i}`,
-  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  status: 'unlocked',
-}));
+let slides = []; // Array to hold slide data
 
 let twitterAccount = '';
 
@@ -20,8 +16,9 @@ const createForm = (slideIndex) => {
       <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
       <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
     ` : `
-      <h2 class="slide-title">${slides[slideIndex].caption}</h2>
-      <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].caption}</label>
+      <h2 class="slide-title">${slides[slideIndex].title}</h2>
+      <p class="slide-description">${slides[slideIndex].description}</p>
+      <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].title}</label>
       <textarea name="question" id="question" placeholder="Your Question"></textarea>
       <div class="buttons">
         <button type="button" class="prev" data-slide="${slideIndex}">Previous</button>
@@ -112,4 +109,19 @@ const updateSlides = () => {
   });
 };
 
-updateSlides();
+const fetchSlides = async () => {
+  try {
+    const response = await fetch('slides.json');
+    if (response.ok) {
+      const slidesData = await response.json();
+      slides = slidesData;
+      updateSlides();
+    } else {
+      console.error('Failed to fetch slides data');
+    }
+  } catch (error) {
+    console.error('An error occurred while fetching slides data', error);
+  }
+};
+
+fetchSlides();
