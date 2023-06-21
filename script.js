@@ -7,31 +7,44 @@ const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'applicatio
 let slides = Array.from({ length: 13 }, (_, i) => ({
   caption: `Slide ${i}`,
   status: 'unlocked',
-  content: `
-    <div class="slide-content">
-      <h2 class="slide-title">Slide ${i}</h2>
-      <p>This is the content of Slide ${i}.</p>
-    </div>
-  `,
 }));
 
 let twitterAccount = '';
 
 const createForm = (slideIndex) => {
   const form = document.createElement('form');
-  form.innerHTML = slides[slideIndex].content;
+  form.innerHTML = `
+    ${slideIndex === 0 ? `
+      <h2 class="headline">Explore the Frensville Ecosystem</h2>
+      <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
+      <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
+    ` : `
+      <textarea name="question" placeholder="Your Question"></textarea>
+      <button type="button" class="prev" data-slide="${slideIndex}">Previous</button>
+      <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
+      <button type="submit" data-slide="${slideIndex}">Submit</button>
+    `}
+  `;
   form.onsubmit = async (event) => {
     event.preventDefault();
-    const { twitter } = event.target.elements;
+    const { twitter, question } = event.target.elements;
     if (twitter) {
       twitterAccount = twitter.value;
     }
-    if (twitterAccount) {
-      await submitQuestion(slideIndex, twitterAccount);
+    if (twitterAccount && question) {
+      await submitQuestion(slideIndex, twitterAccount, question.value);
       event.target.reset();
     }
     showNextSlide(slideIndex);
   };
+  const skipButton = form.querySelector('.skip');
+  if (skipButton) {
+    skipButton.onclick = () => showNextSlide(slideIndex);
+  }
+  const prevButton = form.querySelector('.prev');
+  if (prevButton) {
+    prevButton.onclick = () => showPreviousSlide(slideIndex);
+  }
   return form;
 };
 
@@ -39,21 +52,23 @@ const createSlide = (slideData, index) => {
   const slide = document.createElement('div');
   slide.className = 'slide-container';
   slide.innerHTML = `
+    ${index !== 0 ? '<button class="prev" data-slide="'+index+'">Previous</button>' : ''}
     <div class="slide">
-      ${slideData.content}
+      <h2>${slideData.caption}</h2>
     </div>
   `;
   slide.appendChild(createForm(index));
   return slide;
 };
 
-const submitQuestion = async (slideIndex, twitter) => {
+const submitQuestion = async (slideIndex, twitter, question) => {
   const data = {
     records: [
       {
         fields: {
           Slide: `Slide ${slideIndex}`,
           Twitter: twitter,
+          Question: question,
         },
       },
     ],
@@ -74,8 +89,17 @@ const showNextSlide = (index) => {
   }
 };
 
+const showPreviousSlide = (index) => {
+  const currentSlide = document.querySelectorAll('.slide-container')[index];
+  currentSlide.style.display = 'none';
+  const previousSlide = document.querySelectorAll('.slide-container')[index - 1];
+  if (previousSlide) {
+    previousSlide.style.display = 'flex';
+  }
+};
+
 const updateSlides = () => {
-  const container = document.getElementById('slide-container');
+  const container = document.getElementById('slides-container');
   container.innerHTML = '';
   slides.forEach((slideData, index) => {
     const slide = createSlide(slideData, index);
