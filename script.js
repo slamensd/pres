@@ -1,78 +1,87 @@
-$(document).ready(function() {
-    // Replace these with your own values
-    const airtableBaseId = 'appMQObOvMIuSBflv';
-    const airtableTableName = 'Slides';
-    const airtableApiKey = 'keyzbt7lLQxpiP1MO';
+// Airtable config
+const baseId = 'appMQObOvMIuSBflv';
+const tableName = 'Slides';
+const apiKey = 'keyzbt7lLQxpiP1MO';
+const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
-    const slides = [
-        { number: 1, caption: 'Welcome to Frensville', unlocked: true, imageUrl: 'slides/Slide1.png' },
-        { number: 2, caption: 'Our Mission', unlocked: false, imageUrl: 'slides/Slide2.png' },
-        // add more slides
-    ];
+let slides = [
+    { src: "/slides/Slide1.png", caption: "Slide 1", threshold: 500, status: "unlocked", views: 0 },
+    { src: "/slides/Slide2.png", caption: "Slide 2", threshold: 700, status: "locked", views: 0 },
+    // Add more slides here
+];
 
-    const saveSlides = function() {
-        localStorage.setItem('slides', JSON.stringify(slides));
+const createForm = (slideIndex) => {
+    const form = document.createElement('form');
+    form.innerHTML = `
+        <input type="text" name="twitter" placeholder="Your Twitter Account" required>
+        <textarea name="question" placeholder="Your Question"></textarea>
+        <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
+        <button type="submit" data-slide="${slideIndex}">Submit</button>
+    `;
+    form.onsubmit = async (event) => {
+        event.preventDefault();
+        const { twitter, question } = event.target.elements;
+        if (twitter.value) {
+            await submitQuestion(slideIndex, twitter.value, question.value);
+            event.target.reset();
+        }
+        showNextSlide(slideIndex);
     };
+    form.querySelector('.skip').onclick = () => showNextSlide(slideIndex);
+    return form;
+};
 
-    const loadSlides = function() {
-        const savedSlides = JSON.parse(localStorage.getItem('slides'));
-        if (savedSlides) slides = savedSlides;
-    };
+const createSlide = (slideData, index) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide-container';
+    slide.innerHTML = `
+        <div class="slide">
+            <img src="${slideData.src}" alt="Slide">
+            <p>${slideData.caption}</p>
+        </div>
+    `;
+    if (slideData.status === 'unlocked') {
+        slide.appendChild(createForm(index));
+    }
+    return slide;
+};
 
-    const updateSlides = function() {
-        $('#slides-container').empty();  // Clear the slides container
-
-        slides.forEach((slide, index) => {
-            const slideContainer = $('<div>', { class: 'slide-container', id: `slide-${slide.number}` });
-            const slideDiv = $('<div>', { class: 'slide' });
-            const formContainer = $('<div>', { class: 'form-container' });
-            if (slide.unlocked) slideDiv.css('display', 'block');
-
-            const slideImg = $('<img>', { src: slide.imageUrl, alt: `Slide ${slide.number}` });
-            const slideCaption = $('<p>', { text: slide.caption });
-
-            const twitterInput = $('<input>', { type: 'text', placeholder: 'Your Twitter handle' });
-            const questionInput = $('<textarea>', { rows: 3, placeholder: 'Your question' });
-            const submitButton = $('<button>', { text: 'Submit', click: function() {
-                const data = {
-                    fields: {
-                        "Slide": slide.number,
-                        "Twitter": twitterInput.val(),
-                        "Question": questionInput.val()
-                    }
-                };
-                $.ajax({
-                    url: `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableName}`,
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${airtableApiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    data: JSON.stringify(data),
-                    success: function() {
-                        if (index + 1 < slides.length) {
-                            slides[index + 1].unlocked = true;
-                            saveSlides();
-                            updateSlides();
-                        }
-                    }
-                });
-            }});
-            const skipButton = $('<button>', { text: 'Skip', click: function() {
-                if (index + 1 < slides.length) {
-                    slides[index + 1].unlocked = true;
-                    saveSlides();
-                    updateSlides();
+const submitQuestion = async (slideIndex, twitter, question) => {
+    const data = {
+        "records": [
+            {
+                "fields": {
+                    "Slide": `Slide ${slideIndex + 1}`,
+                    "Twitter": twitter,
+                    "Question": question
                 }
-            }});
-
-            slideDiv.append(slideImg, slideCaption);
-            formContainer.append(twitterInput, questionInput, submitButton, skipButton);
-            slideContainer.append(slideDiv, formContainer);
-            $('#slides-container').append(slideContainer);
-        });
+            }
+        ]
     };
+    await fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+    });
+};
 
-    loadSlides();  // Load slides from local storage
-    updateSlides();  // Display slides
-});
+const showNextSlide = (index) => {
+    const currentSlide = document.querySelectorAll('.slide-container')[index];
+    currentSlide.style.display = 'none';
+    const nextSlide = document.querySelectorAll('.slide-container')[index + 1];
+    if (nextSlide) {
+        nextSlide.style.display = 'flex';
+    }
+};
+
+const updateSlides = () => {
+    const container = document.getElementById('slides-container');
+    container.innerHTML = '';
+    slides.forEach((slideData, index) => {
+        const slide = createSlide(slideData, index);
+        slide.style.display = index === 0 ? 'flex' : 'none';
+        container.appendChild(slide);
+    });
+};
+
+updateSlides();
