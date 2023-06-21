@@ -9,6 +9,12 @@ let questions = [];
 
 let twitterAccount = '';
 
+let currentSlideIndex = 0;
+
+const setCurrentSlideIndex = (index) => {
+  currentSlideIndex = index;
+};
+
 const createForm = (slideIndex) => {
   const form = document.createElement('form');
   form.className = 'slide-form';
@@ -104,6 +110,8 @@ const showNextSlide = (index) => {
   const nextSlide = document.querySelectorAll('.slide-container')[index + 1];
   if (nextSlide) {
     nextSlide.style.display = 'flex';
+    setCurrentSlideIndex(index + 1);
+    fetchQuestions();
   }
 };
 
@@ -113,20 +121,11 @@ const showPreviousSlide = (index) => {
   const previousSlide = document.querySelectorAll('.slide-container')[index - 1];
   if (previousSlide) {
     previousSlide.style.display = 'flex';
+    setCurrentSlideIndex(index - 1);
+    fetchQuestions();
   }
 };
 
-const updateSlides = () => {
-    const container = document.getElementById('slide-container');
-    container.innerHTML = '';
-    slides.forEach((slideData, index) => {
-      const slide = createSlide(slideData, index);
-      slide.style.display = index === 0 ? 'flex' : 'none';
-      container.appendChild(slide);
-    });
-  };
-
-  
 const showQuestions = () => {
   const questionsContainer = document.getElementById('questions-container');
   questionsContainer.innerHTML = '';
@@ -134,6 +133,8 @@ const showQuestions = () => {
     const questionEntry = createQuestionEntry(questionData);
     questionsContainer.appendChild(questionEntry);
   });
+  questionsContainer.style.maxHeight = 'calc(100vh - 200px)';
+  questionsContainer.style.overflowY = 'auto';
 };
 
 const fetchSlides = async () => {
@@ -158,7 +159,8 @@ const fetchQuestions = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      questions = data.records.map((record) => ({
+      const filteredQuestions = data.records.filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`);
+      questions = filteredQuestions.map((record) => ({
         question: record.fields.Question,
         twitter: record.fields.Twitter,
         slide: record.fields.Slide,
