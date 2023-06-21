@@ -54,6 +54,7 @@ const createSlide = (slideData, index) => {
   slide.innerHTML = `
     ${index !== 0 ? '<button class="prev" data-slide="'+index+'">Previous</button>' : ''}
     <div class="slide">
+      ${index !== 0 ? `<img src="slides/Slide${index}.png" alt="Slide ${index}">` : ''}
       <h2>${slideData.caption}</h2>
     </div>
   `;
