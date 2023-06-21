@@ -1,24 +1,92 @@
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #0da6ba;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .slide-container {
     display: none;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding: 20px;
-    margin-bottom: 20px;
+    justify-content: center;
+    width: 80%;
+    margin: 20px auto;
+    position: relative;
 }
 
 .slide {
-    flex-basis: 75%;
-    text-align: center;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #0da6ba;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.button:hover {
+    background-color: #0b8a95;
 }
 
 .slide .prev {
     position: absolute;
     top: -40px;
     left: 0;
+    padding: 10px 20px;
+    background-color: #0da6ba;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.slide .prev:hover {
+    background-color: #0b8a95;
 }
 
 .question-log {
@@ -27,48 +95,4 @@ body {
     margin-top: 20px;
     padding: 10px;
     border: 1px solid #ccc;
-}
-
-
-form {
-    flex-basis: 25%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-input, textarea {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-.buttons {
-    display: flex;
-    justify-content: space-around;
-}
-
-
-button {
-    padding: 5px 10px;
-    border-radius: 4px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-}
-
-button[type="submit"] {
-    background-color: #0da6ba;
-}
-
-button.skip {
-    background-color: #f5a623;
-}
-
-button.prev {
-    background-color: #7f8c8d;
-    position: absolute;
-    top: 15px;
-    left: 15px;
 }
