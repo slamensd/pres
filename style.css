@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+}
+
+.slide-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.slide, .form-container {
+    width: 75%;
+}
+
+.slide img {
+    max-width: 100%;
+    height: auto;
+}
+
+.form-container {
+    width: 25%;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+}
+
+input, textarea, button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+}
