@@ -21,7 +21,6 @@ const createForm = (slideIndex) => {
       <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
     ` : `
       <h2 class="slide-title">${slides[slideIndex].caption}</h2>
-      <p class="slide-description">${slides[slideIndex].description}</p>
       <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].caption}</label>
       <textarea name="question" id="question" placeholder="Your Question"></textarea>
       <div class="buttons">
@@ -60,8 +59,6 @@ const createSlide = (slideData, index) => {
   slide.innerHTML = `
     <div class="slide">
       ${index !== 0 ? `<img src="slides/Slide${index}.png" alt="Slide ${index}">` : ''}
-      ${index !== 0 ? `<h2 class="slide-title">${slideData.caption}</h2>` : ''}
-      ${index !== 0 ? `<p class="slide-description">${slideData.description}</p>` : ''}
     </div>
   `;
   slide.appendChild(createForm(index));
