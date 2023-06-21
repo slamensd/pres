@@ -5,10 +5,11 @@ const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
 let slides = Array.from({ length: 13 }, (_, i) => ({
-    src: i === 0 ? '' : `slides/Slide${i}.png`,
+    src: i === 0 ? 'slides/Slide0.png' : `slides/Slide${i}.png`,
     caption: `Slide ${i}`,
     status: "unlocked"
 }));
+
 
 let twitterAccount = '';
 
