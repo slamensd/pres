@@ -152,17 +152,6 @@ const fetchSlides = async () => {
   }
 };
 
-const updateSlides = () => {
-    const container = document.getElementById('slide-container');
-    container.innerHTML = '';
-    slides.forEach((slideData, index) => {
-      const slide = createSlide(slideData, index);
-      slide.style.display = index === 0 ? 'flex' : 'none';
-      container.appendChild(slide);
-    });
-  };
-  
-
 const fetchQuestions = async () => {
   try {
     const response = await fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
@@ -183,6 +172,16 @@ const fetchQuestions = async () => {
   } catch (error) {
     console.error('An error occurred while fetching questions data', error);
   }
+};
+
+const updateSlides = () => {
+  const container = document.getElementById('slide-container');
+  container.innerHTML = '';
+  slides.forEach((slideData, index) => {
+    const slide = createSlide(slideData, index);
+    slide.style.display = index === 0 ? 'flex' : 'none';
+    container.appendChild(slide);
+  });
 };
 
 fetchSlides();

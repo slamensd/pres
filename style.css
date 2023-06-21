@@ -77,9 +77,9 @@ body {
   .slide-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
   }
   
@@ -115,5 +115,15 @@ body {
   .twitter-handle,
   .slide-number {
     margin-bottom: 5px;
+  }
+  
+  .slide-form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .questions-container {
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
   }
   

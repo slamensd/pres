@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Presentation</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header class="header">
-    <img src="https://cdn.shopify.com/s/files/1/0673/5813/0452/files/NfrensLogo_b785e6d8-1a35-476b-b15e-36182db28804.png" alt="Nfrens Logo" style="height: 30px;">
-  </header>
-  <div id="slide-container"></div>
-  <div id="questions-container"></div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="script.js"></script>
+    <header class="header">
+        <img src="https://cdn.shopify.com/s/files/1/0673/5813/0452/files/NfrensLogo_b785e6d8-1a35-476b-b15e-36182db28804.png" alt="Nfrens Logo" style="height: 30px;">
+    </header>
+    <div id="slides-container"></div>
+    <div class="slide-form-container">
+        <div id="slide-form" class="slide-container">
+            <div class="slide-content">
+                <h2 class="headline">Explore the Frensville Ecosystem</h2>
+                <form id="slide-form">
+                    <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
+                    <button type="submit" data-slide="0" class="cta-button">Get Started</button>
+                </form>
+            </div>
+        </div>
+        <div id="questions-container" class="questions-container"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
