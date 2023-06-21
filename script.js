@@ -5,8 +5,8 @@ $(document).ready(function() {
     const airtableApiKey = 'keyzbt7lLQxpiP1MO';
 
     const slides = [
-        { number: 1, caption: 'Slide 1 caption', unlocked: true, imageUrl: 'image1.png' },
-        { number: 2, caption: 'Slide 2 caption', unlocked: false, imageUrl: 'image2.png' },
+        { number: 1, caption: 'Welcome to Frensville', unlocked: true, imageUrl: 'slides/Slide1.png' },
+        { number: 2, caption: 'Our Mission', unlocked: false, imageUrl: 'slides/Slide2.png' },
         // add more slides
     ];
 
