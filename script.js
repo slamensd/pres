@@ -116,6 +116,17 @@ const showPreviousSlide = (index) => {
   }
 };
 
+const updateSlides = () => {
+    const container = document.getElementById('slides-container');
+    container.innerHTML = '';
+    slides.forEach((slideData, index) => {
+      const slide = createSlide(slideData, index);
+      slide.style.display = index === 0 ? 'flex' : 'none';
+      container.appendChild(slide);
+    });
+  };
+
+  
 const showQuestions = () => {
   const questionsContainer = document.getElementById('questions-container');
   questionsContainer.innerHTML = '';
