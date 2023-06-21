@@ -4,19 +4,16 @@ const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
-let slides = [
-  {
-    caption: '',
-    status: 'unlocked',
-    content: `
-      <div class="slide-content">
-        <h2 class="headline">Explore the Frensville Ecosystem</h2>
-        <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
-        <button type="submit" data-slide="0" class="cta-button">Get Started</button>
-      </div>
-    `,
-  },
-];
+let slides = Array.from({ length: 13 }, (_, i) => ({
+  caption: `Slide ${i}`,
+  status: 'unlocked',
+  content: `
+    <div class="slide-content">
+      <h2 class="slide-title">Slide ${i}</h2>
+      <p>This is the content of Slide ${i}.</p>
+    </div>
+  `,
+}));
 
 let twitterAccount = '';
 
@@ -78,7 +75,7 @@ const showNextSlide = (index) => {
 };
 
 const updateSlides = () => {
-  const container = document.getElementById('slide-container');
+  const container = document.getElementById('slides-container');
   container.innerHTML = '';
   slides.forEach((slideData, index) => {
     const slide = createSlide(slideData, index);
