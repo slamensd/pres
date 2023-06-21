@@ -34,9 +34,13 @@ const createForm = (slideIndex) => {
         }
         showNextSlide(slideIndex);
     };
-    form.querySelector('.skip').onclick = () => showNextSlide(slideIndex);
-    if (slideIndex > 0) {
-        form.querySelector('.prev').onclick = () => showPreviousSlide(slideIndex);
+    const skipButton = form.querySelector('.skip');
+    if (skipButton) {
+        skipButton.onclick = () => showNextSlide(slideIndex);
+    }
+    const prevButton = form.querySelector('.prev');
+    if (prevButton) {
+        prevButton.onclick = () => showPreviousSlide(slideIndex);
     }
     return form;
 };
