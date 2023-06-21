@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.slide-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.slide {
+    flex-basis: 75%;
+    text-align: center;
+}
+
+form {
+    flex-basis: 25%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+button[type="submit"] {
+    background-color: #0da6ba;
+}
+
+button.skip {
+    background-color: #f5a623;
+}
+
+button.prev {
+    background-color: #7f8c8d;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}

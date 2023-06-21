@@ -4,23 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presentation</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="slide-container">
-        <div class="slide">
-            <p class="view-counter">View Counter: <span id="viewCounter">0</span></p>
-            <div class="lock-status">
-                <span id="lockStatus">Unlock</span>
-            </div>
-            <img src="slides/Slide1.png" alt="Slide" class="slide-image">
-            <p class="caption">Slide 1 caption</p>
-        </div>
-        <div class="navigation-buttons">
-            <button id="prevButton" style="display: none;">Previous</button>
-            <button id="nextButton">Next</button>
-        </div>
-    </div>
+    <header style="background-color: #0da6ba; height: 80px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+        <img src="https://cdn.shopify.com/s/files/1/0673/5813/0452/files/NfrensLogo_b785e6d8-1a35-476b-b15e-36182db28804.png" alt="Nfrens Logo" style="height: 30px;">
+    </header>
+    <div id="slides-container"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
