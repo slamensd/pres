@@ -4,31 +4,41 @@ const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
-// Array with all the slides
 let slides = Array.from({ length: 12 }, (_, i) => ({
     src: `slides/Slide${i + 1}.png`,
     caption: `Slide ${i + 1}`,
     status: "unlocked"
 }));
 
+let twitterAccount = '';
+
 const createForm = (slideIndex) => {
     const form = document.createElement('form');
     form.innerHTML = `
-        <input type="text" name="twitter" placeholder="Your Twitter Account" required>
+        ${slideIndex === 0 ? '<input type="text" name="twitter" id="twitter-input" placeholder="Your Twitter Account" required>' : ''}
         <textarea name="question" placeholder="Your Question"></textarea>
-        <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
-        <button type="submit" data-slide="${slideIndex}">Submit</button>
+        <div class="buttons">
+            ${slideIndex > 0 ? '<button type="button" class="prev" data-slide="'+slideIndex+'">Previous</button>' : ''}
+            <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
+            <button type="submit" data-slide="${slideIndex}">Submit</button>
+        </div>
     `;
     form.onsubmit = async (event) => {
         event.preventDefault();
         const { twitter, question } = event.target.elements;
-        if (twitter.value) {
-            await submitQuestion(slideIndex, twitter.value, question.value);
+        if (twitter) {
+            twitterAccount = twitter.value;
+        }
+        if (twitterAccount) {
+            await submitQuestion(slideIndex, twitterAccount, question.value);
             event.target.reset();
         }
         showNextSlide(slideIndex);
     };
     form.querySelector('.skip').onclick = () => showNextSlide(slideIndex);
+    if (slideIndex > 0) {
+        form.querySelector('.prev').onclick = () => showPreviousSlide(slideIndex);
+    }
     return form;
 };
 
@@ -70,6 +80,15 @@ const showNextSlide = (index) => {
     const nextSlide = document.querySelectorAll('.slide-container')[index + 1];
     if (nextSlide) {
         nextSlide.style.display = 'flex';
+    }
+};
+
+const showPreviousSlide = (index) => {
+    const currentSlide = document.querySelectorAll('.slide-container')[index];
+    currentSlide.style.display = 'none';
+    const previousSlide = document.querySelectorAll('.slide-container')[index - 1];
+    if (previousSlide) {
+        previousSlide.style.display = 'flex';
     }
 };
 
