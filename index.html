@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
-        <!-- Header content -->
-        <img src="https://cdn.shopify.com/s/files/1/0673/5813/0452/files/NfrensLogo_b785e6d8-1a35-476b-b15e-36182db28804.png" alt="Nfrens Logo" style="height: 30px;">
-    </header>
-    <div id="slidesContainer"></div>
+    <div class="slide-container">
+        <div class="slide">
+            <p class="view-counter">View Counter: <span id="viewCounter">0</span></p>
+            <div class="lock-status">
+                <span id="lockStatus">Unlock</span>
+            </div>
+            <img src="slides/Slide1.png" alt="Slide" class="slide-image">
+            <p class="caption">Slide 1 caption</p>
+        </div>
+        <div class="navigation-buttons">
+            <button id="prevButton" style="display: none;">Previous</button>
+            <button id="nextButton">Next</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
