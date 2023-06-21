@@ -6,6 +6,7 @@ const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'applicatio
 
 let slides = Array.from({ length: 13 }, (_, i) => ({
   caption: `Slide ${i}`,
+  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   status: 'unlocked',
 }));
 
@@ -19,7 +20,10 @@ const createForm = (slideIndex) => {
       <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
       <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
     ` : `
-      <textarea name="question" placeholder="Your Question"></textarea>
+      <h2 class="slide-title">${slides[slideIndex].caption}</h2>
+      <p class="slide-description">${slides[slideIndex].description}</p>
+      <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].caption}</label>
+      <textarea name="question" id="question" placeholder="Your Question"></textarea>
       <div class="buttons">
         <button type="button" class="prev" data-slide="${slideIndex}">Previous</button>
         <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
@@ -56,7 +60,8 @@ const createSlide = (slideData, index) => {
   slide.innerHTML = `
     <div class="slide">
       ${index !== 0 ? `<img src="slides/Slide${index}.png" alt="Slide ${index}">` : ''}
-      <h2>${slideData.caption}</h2>
+      ${index !== 0 ? `<h2 class="slide-title">${slideData.caption}</h2>` : ''}
+      ${index !== 0 ? `<p class="slide-description">${slideData.description}</p>` : ''}
     </div>
   `;
   slide.appendChild(createForm(index));
