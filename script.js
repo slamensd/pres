@@ -9,9 +9,11 @@ let slides = [
     caption: '',
     status: 'unlocked',
     content: `
-      <h2 class="headline">Explore the Frensville Ecosystem</h2>
-      <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
-      <button type="submit" data-slide="0" class="cta-button">Get Started</button>
+      <div class="slide-content">
+        <h2 class="headline">Explore the Frensville Ecosystem</h2>
+        <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
+        <button type="submit" data-slide="0" class="cta-button">Get Started</button>
+      </div>
     `,
   },
 ];
