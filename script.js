@@ -4,11 +4,12 @@ const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
-let slides = [
-    { src: "/slides/Slide1.png", caption: "Slide 1", threshold: 500, status: "unlocked", views: 0 },
-    { src: "/slides/Slide2.png", caption: "Slide 2", threshold: 700, status: "locked", views: 0 },
-    // Add more slides here
-];
+// Array with all the slides
+let slides = Array.from({ length: 12 }, (_, i) => ({
+    src: `slides/Slide${i + 1}.png`,
+    caption: `Slide ${i + 1}`,
+    status: "unlocked"
+}));
 
 const createForm = (slideIndex) => {
     const form = document.createElement('form');
@@ -40,9 +41,7 @@ const createSlide = (slideData, index) => {
             <p>${slideData.caption}</p>
         </div>
     `;
-    if (slideData.status === 'unlocked') {
-        slide.appendChild(createForm(index));
-    }
+    slide.appendChild(createForm(index));
     return slide;
 };
 
