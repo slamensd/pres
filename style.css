@@ -118,4 +118,34 @@ body {
     background-color: #0da6ba;
     cursor: pointer;
   }
+
+  #questions-container {
+    padding: 20px;
+  }
+  
+  .question-entry {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .question-entry::before {
+    content: counter(question-counter);
+    counter-increment: question-counter;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #0da6ba;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 10px;
+    line-height: 20px;
+  }
+  
+  #questions-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
   
