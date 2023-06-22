@@ -175,16 +175,24 @@ const fetchQuestions = async () => {
   }
 };
 
-const showQuestions = () => {
+const showQuestions = async (slideIndex) => {
+  const response = await fetchQuestions(slideIndex);
   const questionsContainer = document.getElementById('questions-container');
-  questionsContainer.innerHTML = '';
-  questions.forEach((questionData) => {
-    const questionEntry = document.createElement('p');
-    questionEntry.className = 'question-text';
-    questionEntry.textContent = questionData;
-    questionsContainer.appendChild(questionEntry);
-  });
+  const questionsList = questionsContainer.querySelector('.questions-list');
+
+  questionsList.innerHTML = '';
+
+  if (response && response.length > 0) {
+    response.forEach((question) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = question.fields.Question;
+      questionsList.appendChild(listItem);
+    });
+  }
+
+  questionsContainer.classList.add('show');
 };
+
 
 
 
