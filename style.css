@@ -44,7 +44,7 @@ header img {
 input,
 textarea {
   margin-bottom: 10px;
-  padding: 5px;
+  padding: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
   width: 100%;
@@ -56,16 +56,7 @@ textarea {
   align-items: center;
 }
 
-.buttons .cta-button {
-  padding: 10px 20px;
-  border-radius: 4px;
-  border: none;
-  color: #fff;
-  background-color: #0da6ba;
-  cursor: pointer;
-  width: 100%;
-}
-
+.buttons .cta-button,
 .buttons .prev,
 .buttons .submit {
   padding: 10px 20px;
@@ -74,6 +65,9 @@ textarea {
   color: #fff;
   background-color: #0da6ba;
   cursor: pointer;
+  width: 100%;
+  font-size: 120%;
+  text-align: left;
 }
 
 .buttons .prev {
@@ -112,32 +106,27 @@ textarea {
 #questions-label {
   font-weight: bold;
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: 120%;
   padding-left: 20px;
+  text-align: left;
 }
 
 .headline {
-  font-size: 24px;
+  font-size: 120%;
   text-align: left;
   margin-bottom: 20px;
 }
 
 .slide-title {
-  font-size: 20px;
+  font-size: 110%;
   text-align: left;
-  margin-bottom: 10px;
 }
 
 .slide-description {
-  font-size: 14px;
+  font-size: 100%;
   text-align: left;
-  margin-bottom: 20px;
 }
 
 #twitter-input {
   width: 100%;
-}
-
-#questions-label {
-  padding-left: 20px;
 }
