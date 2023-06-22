@@ -62,7 +62,7 @@ const createSlide = (slideData, index) => {
   slide.className = 'slide-container';
   slide.innerHTML = `
     <div class="slide">
-      ${index !== 0 ? `<img src="slides/Slide${index}.png" alt="Slide ${index}">` : ''}
+      ${index >= 0 ? `<img src="slides/Slide${index}.png" alt="Slide ${index}">` : ''}
     </div>
   `;
   slide.appendChild(createForm(index));
