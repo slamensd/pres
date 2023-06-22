@@ -53,6 +53,7 @@ textarea {
 .buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .buttons .cta-button {
@@ -65,11 +66,22 @@ textarea {
   width: 100%;
 }
 
+.buttons .prev,
+.buttons .submit {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  background-color: #0da6ba;
+  cursor: pointer;
+}
+
 .buttons .prev {
   background-color: #7f8c8d;
-  position: absolute;
-  top: 15px;
-  left: 15px;
+}
+
+.buttons .submit {
+  background-color: #0da6ba;
 }
 
 #questions-container {
