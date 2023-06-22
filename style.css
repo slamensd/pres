@@ -83,9 +83,14 @@ header {
 
 /* Questions Container Styles */
 #questions-container {
+  display: none;
   margin-top: 20px;
   padding: 20px;
   border: 1px solid #ccc;
+}
+
+#questions-container.show {
+  display: block;
 }
 
 #questions-container .question-label {
@@ -102,6 +107,10 @@ header {
 /* Media Queries */
 @media (max-width: 767px) {
   .slide-form {
+    padding: 10px;
+  }
+
+  #questions-container {
     padding: 10px;
   }
 }
