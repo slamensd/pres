@@ -157,3 +157,6 @@ textarea {
 .cta-button:hover {
   opacity: 0.8;
 }
+
+.question-label {
+  margin-bottom: 10px; /* Add space after the question label
