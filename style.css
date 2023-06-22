@@ -54,6 +54,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
 .buttons .cta-button,
@@ -76,6 +77,12 @@ textarea {
 
 .buttons .submit {
   background-color: #0da6ba;
+}
+
+.buttons .cta-button:hover,
+.buttons .prev:hover,
+.buttons .submit:hover {
+  opacity: 0.8;
 }
 
 #questions-container {
@@ -129,4 +136,24 @@ textarea {
 
 #twitter-input {
   width: 100%;
+}
+
+.ask-anything-label {
+  font-weight: bold;
+}
+
+.cta-button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  background-color: #0da6ba;
+  cursor: pointer;
+  font-size: 120%;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.cta-button:hover {
+  opacity: 0.8;
 }
