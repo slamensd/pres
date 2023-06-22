@@ -162,13 +162,17 @@ const fetchQuestions = async () => {
 const showQuestions = () => {
   const questionsContainer = document.getElementById('questions-container');
   questionsContainer.innerHTML = '';
-  questions.forEach((questionData) => {
-    const questionEntry = document.createElement('p');
-    questionEntry.className = 'question-text';
-    questionEntry.textContent = questionData;
+  questions.forEach((questionData, index) => {
+    const questionEntry = document.createElement('div');
+    questionEntry.className = 'question-entry';
+    questionEntry.innerHTML = `
+      <p class="question-number">${index + 1}</p>
+      <p class="question-text">${questionData}</p>
+    `;
     questionsContainer.appendChild(questionEntry);
   });
 };
+
 
 
 const updateSlides = () => {

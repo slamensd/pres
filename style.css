@@ -1,151 +1,116 @@
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .header {
-    background-color: #0da6ba;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .slide-container {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .slide {
-    flex-basis: 75%;
-    text-align: center;
-  }
-  
-  form {
-    flex-basis: 25%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  input,
-  textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .buttons button {
-    padding: 10px 20px;
-    border-radius: 4px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .buttons button.prev {
-    background-color: #7f8c8d;
-  }
-  
-  .headline {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: left;
-  }
-  
-  .slide-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    margin-bottom: 20px;
-  }
-  
-  .slide-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 0;
-  }
-  
-  .slide-description {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .form-label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 20px;
-  }
-  
-  .question-entry {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .question-text {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .questions-container {
-    max-height: calc(100vh - 250px);
-    overflow-y: auto;
-  }
+  font-family: Arial, sans-serif;
+}
 
-  .cta-button {
-    padding: 10px 20px;
-    border-radius: 4px;
-    border: none;
-    color: #fff;
-    background-color: #0da6ba;
-    cursor: pointer;
-  }
+.slide-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
+}
 
-  #questions-container {
-    padding: 20px;
-  }
-  
-  .question-entry {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .question-entry::before {
-    content: counter(question-counter);
-    counter-increment: question-counter;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: #0da6ba;
-    color: #fff;
-    border-radius: 50%;
-    text-align: center;
-    margin-right: 10px;
-    line-height: 20px;
-  }
-  
-  #questions-label {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
+.slide {
+  flex-basis: 75%;
+  text-align: center;
+}
+
+.slide-form {
+  flex-basis: 25%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+input, textarea {
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons .cta-button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  background-color: #0da6ba;
+  cursor: pointer;
+  width: 100%;
+}
+
+.buttons .prev {
+  background-color: #7f8c8d;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+#slides-container {
+  margin-bottom: 20px;
+}
+
+#questions-container {
+  padding: 20px;
+}
+
+.question-entry {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  counter-increment: question-counter;
+}
+
+.question-entry::before {
+  content: counter(question-counter);
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #0da6ba;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 10px;
+  line-height: 20px;
+}
+
+#questions-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 24px;
+  padding-left: 20px;
+}
+
+.headline {
+  font-size: 24px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.slide-title {
+  font-size: 20px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.slide-description {
+  font-size: 14px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#twitter-input {
+  width: 100%;
+}
+
+#questions-label {
+  padding-left: 20px;
+}
+
