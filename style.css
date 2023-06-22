@@ -109,4 +109,13 @@ body {
     max-height: calc(100vh - 250px);
     overflow-y: auto;
   }
+
+  .cta-button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    background-color: #0da6ba;
+    cursor: pointer;
+  }
   
