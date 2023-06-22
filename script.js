@@ -106,14 +106,16 @@ const showNextSlide = (index) => {
   const nextSlide = document.querySelectorAll('.slide-container')[index + 1];
   if (nextSlide) {
     nextSlide.style.display = 'flex';
-    if (index + 1 === 1) {
-      document.getElementById('questions-container').style.display = 'block'; // Show questions-container on slide 1
-    } else {
-      document.getElementById('questions-container').style.display = 'none'; // Hide questions-container on other slides
+    const questionsContainer = document.getElementById('questions-container');
+    if (questionsContainer) {
+      if (index + 1 === 1) {
+        questionsContainer.style.display = 'block'; // Show questions-container on slide 1
+      } else {
+        questionsContainer.style.display = 'none'; // Hide questions-container on other slides
+      }
     }
   }
 };
-
 
 const showPreviousSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
@@ -122,13 +124,17 @@ const showPreviousSlide = (index) => {
   const previousSlide = document.querySelectorAll('.slide-container')[index - 1];
   if (previousSlide) {
     previousSlide.style.display = 'flex';
-    if (index - 1 === 1) {
-      document.getElementById('questions-container').style.display = 'block'; // Show questions-container on slide 1
-    } else {
-      document.getElementById('questions-container').style.display = 'none'; // Hide questions-container on other slides
+    const questionsContainer = document.getElementById('questions-container');
+    if (questionsContainer) {
+      if (index - 1 === 1) {
+        questionsContainer.style.display = 'block'; // Show questions-container on slide 1
+      } else {
+        questionsContainer.style.display = 'none'; // Hide questions-container on other slides
+      }
     }
   }
 };
+
 
 
 
