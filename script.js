@@ -133,7 +133,7 @@ const showQuestions = () => {
     const questionEntry = createQuestionEntry(questionData);
     questionsContainer.appendChild(questionEntry);
   });
-  questionsContainer.style.maxHeight = 'calc(100vh - 200px)';
+  questionsContainer.style.maxHeight = 'calc(100vh - 250px)';
   questionsContainer.style.overflowY = 'auto';
 };
 
