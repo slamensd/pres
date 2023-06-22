@@ -120,14 +120,7 @@ const showPreviousSlide = (index) => {
   }
 };
 
-const showQuestions = () => {
-  const questionsContainer = document.getElementById('questions-container');
-  questionsContainer.innerHTML = '';
-  questions.forEach((questionData) => {
-    const questionEntry = createQuestionEntry(questionData);
-    questionsContainer.appendChild(questionEntry);
-  });
-};
+
 
 const fetchSlides = async () => {
   try {
@@ -154,7 +147,7 @@ const fetchQuestions = async () => {
       console.log('Questions data:', data);
       const filteredQuestions = data.records
         .filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`)
-        .map((record) => record.fields);
+        .map((record) => record.fields.Question);
       console.log('Filtered questions:', filteredQuestions);
       questions = filteredQuestions;
       showQuestions();
@@ -165,6 +158,18 @@ const fetchQuestions = async () => {
     console.error('An error occurred while fetching questions data', error);
   }
 };
+
+const showQuestions = () => {
+  const questionsContainer = document.getElementById('questions-container');
+  questionsContainer.innerHTML = '';
+  questions.forEach((questionData) => {
+    const questionEntry = document.createElement('p');
+    questionEntry.className = 'question-text';
+    questionEntry.textContent = questionData;
+    questionsContainer.appendChild(questionEntry);
+  });
+};
+
 
 const updateSlides = () => {
   const container = document.getElementById('slides-container');
