@@ -138,28 +138,34 @@ const fetchSlides = async () => {
 };
 
 const fetchQuestions = async () => {
-    try {
-      const response = await fetch('questions.json');
-      if (response.ok) {
-        const questionsData = await response.json();
-        questions = questionsData;
-        showQuestions();
-      } else {
-        console.error('Failed to fetch questions data');
-      }
-    } catch (error) {
-      console.error('An error occurred while fetching questions data', error);
-    }
-  };
-  
-  const showQuestions = () => {
-    const questionsContainer = document.getElementById('questions-container');
-    questionsContainer.innerHTML = '';
-    questions.forEach((questionData) => {
-      const questionEntry = createQuestionEntry(questionData);
-      questionsContainer.appendChild(questionEntry);
+  try {
+    const response = await fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
+      headers: headers,
     });
-  };
+    if (response.ok) {
+      const data = await response.json();
+      const filteredQuestions = data.records
+        .filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`)
+        .map((record) => record.fields.Question);
+      questions = filteredQuestions;
+      showQuestions();
+    } else {
+      console.error('Failed to fetch questions data');
+    }
+  } catch (error) {
+    console.error('An error occurred while fetching questions data', error);
+  }
+};
+
+const showQuestions = () => {
+  const questionsContainer = document.getElementById('questions-container');
+  questionsContainer.innerHTML = '';
+  questions.forEach((questionData) => {
+    const questionEntry = createQuestionEntry(questionData);
+    questionsContainer.appendChild(questionEntry);
+  });
+};
+
   
 
 const updateSlides = () => {
