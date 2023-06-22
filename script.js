@@ -23,19 +23,18 @@ const createForm = (slideIndex) => {
       <div class="slide-content">
         <h2 class="headline">Explore the Frensville Ecosystem</h2>
         <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
-        <button type="submit" data-slide="${slideIndex}" class="cta-button">Get Started</button>
+        <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Get Started</button>
       </div>
     ` : `
       <div class="slide-content">
         <h2 class="slide-title">${slides[slideIndex].title}</h2>
         <p class="slide-description">${slides[slideIndex].description}</p>
-        <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].title}</label>
+        <label for="question" class="form-label">Ask Us Anything</label>
         <textarea name="question" id="question" placeholder="Your Question"></textarea>
       </div>
       <div class="buttons">
-        <button type="button" class="prev" data-slide="${slideIndex}">Previous</button>
-        <button type="button" class="skip" data-slide="${slideIndex}">Skip</button>
-        <button type="submit" data-slide="${slideIndex}">Submit</button>
+        <button type="button" class="buttons prev" data-slide="${slideIndex}">Previous</button>
+        <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Submit</button>
       </div>
     `}
   `;
@@ -51,10 +50,6 @@ const createForm = (slideIndex) => {
     }
     showNextSlide(slideIndex);
   };
-  const skipButton = form.querySelector('.skip');
-  if (skipButton) {
-    skipButton.onclick = () => showNextSlide(slideIndex);
-  }
   const prevButton = form.querySelector('.prev');
   if (prevButton) {
     prevButton.onclick = () => showPreviousSlide(slideIndex);
@@ -79,8 +74,6 @@ const createQuestionEntry = (questionData) => {
   questionEntry.className = 'question-entry';
   questionEntry.innerHTML = `
     <p class="question-text">${questionData.question}</p>
-    <p class="twitter-handle">Twitter: ${questionData.twitter}</p>
-    <p class="slide-number">Slide: ${questionData.slide}</p>
   `;
   return questionEntry;
 };
@@ -159,12 +152,10 @@ const fetchQuestions = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      const filteredQuestions = data.records.filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`);
-      questions = filteredQuestions.map((record) => ({
-        question: record.fields.Question,
-        twitter: record.fields.Twitter,
-        slide: record.fields.Slide,
-      }));
+      const filteredQuestions = data.records
+        .filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`)
+        .map((record) => record.fields.Question);
+      questions = filteredQuestions;
       showQuestions();
     } else {
       console.error('Failed to fetch questions data');
@@ -185,4 +176,3 @@ const updateSlides = () => {
 };
 
 fetchSlides();
-fetchQuestions();
