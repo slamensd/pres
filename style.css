@@ -1,5 +1,24 @@
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #0da6ba;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+header img {
+  height: 30px;
+}
+
+#slides-container {
+  margin-bottom: 20px;
 }
 
 .slide-container {
@@ -22,7 +41,8 @@ body {
   flex-direction: column;
 }
 
-input, textarea {
+input,
+textarea {
   margin-bottom: 10px;
   padding: 5px;
   border-radius: 4px;
@@ -50,10 +70,6 @@ input, textarea {
   position: absolute;
   top: 15px;
   left: 15px;
-}
-
-#slides-container {
-  margin-bottom: 20px;
 }
 
 #questions-container {
@@ -113,4 +129,3 @@ input, textarea {
 #questions-label {
   padding-left: 20px;
 }
-
