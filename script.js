@@ -29,7 +29,7 @@ const createForm = (slideIndex) => {
       <div class="slide-content">
         <h2 class="slide-title">${slides[slideIndex].title}</h2>
         <p class="slide-description">${slides[slideIndex].description}</p>
-        <label for="question" class="form-label">Ask Us Anything</label>
+        <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].title}</label>
         <textarea name="question" id="question" placeholder="Your Question"></textarea>
       </div>
       <div class="buttons">
@@ -78,7 +78,6 @@ const createQuestionEntry = (questionData) => {
   return questionEntry;
 };
 
-
 const submitQuestion = async (slideIndex, twitter, question) => {
   const data = {
     records: [
@@ -120,8 +119,14 @@ const showPreviousSlide = (index) => {
   }
 };
 
-
-
+const showQuestions = () => {
+  const questionsContainer = document.getElementById('questions-container');
+  questionsContainer.innerHTML = '';
+  questions.forEach((questionData) => {
+    const questionEntry = createQuestionEntry(questionData);
+    questionsContainer.appendChild(questionEntry);
+  });
+};
 
 const fetchSlides = async () => {
   try {
@@ -148,7 +153,7 @@ const fetchQuestions = async () => {
       console.log('Questions data:', data);
       const filteredQuestions = data.records
         .filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`)
-        .map((record) => record.fields.Question);
+        .map((record) => record.fields);
       console.log('Filtered questions:', filteredQuestions);
       questions = filteredQuestions;
       showQuestions();
@@ -159,18 +164,6 @@ const fetchQuestions = async () => {
     console.error('An error occurred while fetching questions data', error);
   }
 };
-
-
-const showQuestions = () => {
-  const questionsContainer = document.getElementById('questions-container');
-  questionsContainer.innerHTML = '';
-  questions.forEach((questionData) => {
-    const questionEntry = createQuestionEntry(questionData);
-    questionsContainer.appendChild(questionEntry);
-  });
-};
-
-  
 
 const updateSlides = () => {
   const container = document.getElementById('slides-container');
