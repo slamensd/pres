@@ -22,6 +22,7 @@ const createForm = (slideIndex) => {
     ${slideIndex === 0 ? `
       <div class="slide-content">
         <h2 class="headline">Explore the Frensville Ecosystem</h2>
+        <p class="slide-description">${slides[slideIndex].description}</p>
         <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
         <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Get Started</button>
       </div>
