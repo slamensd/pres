@@ -175,7 +175,7 @@ const fetchQuestions = async () => {
 };
 
 const updateSlides = () => {
-  const container = document.getElementById('slides-container');
+  const container = document.getElementById('slide-container');
   container.innerHTML = '';
   slides.forEach((slideData, index) => {
     const slide = createSlide(slideData, index);
