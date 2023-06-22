@@ -180,3 +180,11 @@ textarea {
     flex-basis: 100%;
   }
 }
+
+/* For screens larger than 768px (desktop devices) */
+@media (min-width: 768px) {
+  .slide img {
+    max-width: none;
+    height: auto;
+  }
+}
