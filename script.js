@@ -73,10 +73,11 @@ const createQuestionEntry = (questionData) => {
   const questionEntry = document.createElement('div');
   questionEntry.className = 'question-entry';
   questionEntry.innerHTML = `
-    <p class="question-text">${questionData.fields.Question}</p>
+    <p class="question-text">${questionData}</p>
   `;
   return questionEntry;
 };
+
 
 const submitQuestion = async (slideIndex, twitter, question) => {
   const data = {
