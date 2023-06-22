@@ -15,6 +15,12 @@ header {
   margin-bottom: 20px;
 }
 
+header img {
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
 /* Slide Styles */
 .slide-container {
   display: none;
