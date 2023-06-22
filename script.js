@@ -144,9 +144,11 @@ const fetchQuestions = async () => {
     });
     if (response.ok) {
       const data = await response.json();
+      console.log('Questions data:', data);
       const filteredQuestions = data.records
         .filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`)
         .map((record) => record.fields.Question);
+      console.log('Filtered questions:', filteredQuestions);
       questions = filteredQuestions;
       showQuestions();
     } else {
@@ -156,6 +158,7 @@ const fetchQuestions = async () => {
     console.error('An error occurred while fetching questions data', error);
   }
 };
+
 
 const showQuestions = () => {
   const questionsContainer = document.getElementById('questions-container');
