@@ -172,6 +172,11 @@ textarea {
     padding: 10px;
   }
 
+  .slide img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .slide-form {
     padding: 10px;
   }
