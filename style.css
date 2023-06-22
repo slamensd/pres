@@ -195,3 +195,6 @@ textarea {
   font-weight: bold;
   font-size: 120%;
 }
+.question-label {
+  display: none;
+}

@@ -102,22 +102,31 @@ const submitQuestion = async (slideIndex, twitter, question) => {
 const showNextSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
   currentSlide.style.display = 'none';
+
   const nextSlide = document.querySelectorAll('.slide-container')[index + 1];
   if (nextSlide) {
     nextSlide.style.display = 'flex';
-    setCurrentSlideIndex(index + 1);
-    fetchQuestions();
+    if (index + 1 === 1) {
+      document.getElementById('questions-container').style.display = 'block'; // Show questions-container on slide 1
+    } else {
+      document.getElementById('questions-container').style.display = 'none'; // Hide questions-container on other slides
+    }
   }
 };
+
 
 const showPreviousSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
   currentSlide.style.display = 'none';
+
   const previousSlide = document.querySelectorAll('.slide-container')[index - 1];
   if (previousSlide) {
     previousSlide.style.display = 'flex';
-    setCurrentSlideIndex(index - 1);
-    fetchQuestions();
+    if (index - 1 === 1) {
+      document.getElementById('questions-container').style.display = 'block'; // Show questions-container on slide 1
+    } else {
+      document.getElementById('questions-container').style.display = 'none'; // Hide questions-container on other slides
+    }
   }
 };
 
