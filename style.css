@@ -35,6 +35,11 @@ header img {
   text-align: center;
 }
 
+.slide img {
+  max-width: 100%;
+  height: auto;
+}
+
 .slide-form {
   padding: 20px;
   display: flex;
@@ -163,7 +168,8 @@ textarea {
 /* For screens smaller than 768px (mobile devices) */
 @media (max-width: 767px) {
   .slide-container {
-    padding: 10px;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .slide {
@@ -171,11 +177,6 @@ textarea {
   }
 
   .slide-form {
-    padding: 10px;
-  }
-
-  input,
-  textarea {
-    padding: 8px;
+    flex-basis: 100%;
   }
 }
