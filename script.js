@@ -4,40 +4,39 @@ const tableName = 'Slides';
 const apiKey = 'keyzbt7lLQxpiP1MO';
 const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' };
 
+let currentSlideIndex = 0;
 let slides = [];
-let questions = [];
-
 let twitterAccount = '';
 
-let currentSlideIndex = 0;
-
-const setCurrentSlideIndex = (index) => {
-  currentSlideIndex = index;
+const fetchSlides = async () => {
+  try {
+    const response = await fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
+      headers: headers,
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch slides data');
+    }
+    const data = await response.json();
+    slides = data.records.map((record) => ({
+      src: record.fields.Image ? record.fields.Image[0].url : '',
+      caption: record.fields.Caption || '',
+      status: 'unlocked',
+    }));
+    updateSlides();
+  } catch (error) {
+    console.error('An error occurred while fetching slides data', error);
+  }
 };
 
 const createForm = (slideIndex) => {
   const form = document.createElement('form');
-  form.className = 'slide-form';
   form.innerHTML = `
-    ${slideIndex === 0 ? `
-      <div class="slide-content">
-        <h2 class="headline">Explore the Frensville Ecosystem</h2>
-        <p class="slide-description">${slides[slideIndex].description}</p>
-        <input type="text" name="twitter" id="twitter-input" placeholder="What is your Twitter handle?" required>
-        <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Get Started</button>
-      </div>
-    ` : `
-      <div class="slide-content">
-        <h2 class="slide-title">${slides[slideIndex].title}</h2>
-        <p class="slide-description">${slides[slideIndex].description}</p>
-        <label for="question" class="form-label">Ask Us Anything About ${slides[slideIndex].title}</label>
-        <textarea name="question" id="question" placeholder="Your Question"></textarea>
-      </div>
-      <div class="buttons">
-        <button type="button" class="buttons prev" data-slide="${slideIndex}">Previous</button>
-        <button type="submit" data-slide="${slideIndex}" class="buttons cta-button">Submit</button>
-      </div>
-    `}
+    ${slideIndex === 0 ? '<input type="text" name="twitter" id="twitter-input" placeholder="Your Twitter Account" required>' : '<textarea name="question" placeholder="Your Question"></textarea>'}
+    <div class="buttons">
+      ${slideIndex > 0 ? '<button type="button" class="prev" data-slide="'+slideIndex+'">Previous</button>' : ''}
+      ${slideIndex === 0 ? '' : '<button type="button" class="skip" data-slide="'+slideIndex+'">Skip</button>'}
+      <button type="submit" data-slide="${slideIndex}">${slideIndex === 0 ? 'Get Started' : 'Submit'}</button>
+    </div>
   `;
   form.onsubmit = async (event) => {
     event.preventDefault();
@@ -51,6 +50,10 @@ const createForm = (slideIndex) => {
     }
     showNextSlide(slideIndex);
   };
+  const skipButton = form.querySelector('.skip');
+  if (skipButton) {
+    skipButton.onclick = () => showNextSlide(slideIndex);
+  }
   const prevButton = form.querySelector('.prev');
   if (prevButton) {
     prevButton.onclick = () => showPreviousSlide(slideIndex);
@@ -62,23 +65,15 @@ const createSlide = (slideData, index) => {
   const slide = document.createElement('div');
   slide.className = 'slide-container';
   slide.innerHTML = `
+    ${index !== 0 ? '<button class="prev" data-slide="'+index+'">Previous</button>' : ''}
     <div class="slide">
-      ${index >= 0 ? `<img src="slides/Slide${index}.png" alt="Slide ${index}">` : ''}
+      ${index !== 0 ? '<img src="'+slideData.src+'" alt="Slide">' : ''}
+      <h1>${slideData.caption}</h1>
     </div>
   `;
   slide.appendChild(createForm(index));
   return slide;
 };
-
-const createQuestionEntry = (questionData) => {
-  const questionEntry = document.createElement('div');
-  questionEntry.className = 'question-entry';
-  questionEntry.innerHTML = `
-    <p class="question-text">${questionData}</p>
-  `;
-  return questionEntry;
-};
-
 
 const submitQuestion = async (slideIndex, twitter, question) => {
   const data = {
@@ -102,100 +97,20 @@ const submitQuestion = async (slideIndex, twitter, question) => {
 const showNextSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
   currentSlide.style.display = 'none';
-
   const nextSlide = document.querySelectorAll('.slide-container')[index + 1];
   if (nextSlide) {
     nextSlide.style.display = 'flex';
-    const questionsContainer = document.getElementById('questions-container');
-    if (questionsContainer) {
-      if (index + 1 === 1) {
-        questionsContainer.style.display = 'block'; // Show questions-container on slide 1
-      } else {
-        questionsContainer.style.display = 'none'; // Hide questions-container on other slides
-      }
-    }
   }
 };
 
 const showPreviousSlide = (index) => {
   const currentSlide = document.querySelectorAll('.slide-container')[index];
   currentSlide.style.display = 'none';
-
   const previousSlide = document.querySelectorAll('.slide-container')[index - 1];
   if (previousSlide) {
     previousSlide.style.display = 'flex';
-    const questionsContainer = document.getElementById('questions-container');
-    if (questionsContainer) {
-      if (index - 1 === 1) {
-        questionsContainer.style.display = 'block'; // Show questions-container on slide 1
-      } else {
-        questionsContainer.style.display = 'none'; // Hide questions-container on other slides
-      }
-    }
   }
 };
-
-
-
-
-const fetchSlides = async () => {
-  try {
-    const response = await fetch('slides.json');
-    if (response.ok) {
-      const slidesData = await response.json();
-      slides = slidesData;
-      updateSlides();
-    } else {
-      console.error('Failed to fetch slides data');
-    }
-  } catch (error) {
-    console.error('An error occurred while fetching slides data', error);
-  }
-};
-
-const fetchQuestions = async () => {
-  try {
-    const response = await fetch(`https://api.airtable.com/v0/${baseId}/${tableName}`, {
-      headers: headers,
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Questions data:', data);
-      const filteredQuestions = data.records
-        .filter((record) => record.fields.Slide === `Slide ${currentSlideIndex}`)
-        .map((record) => record.fields.Question);
-      console.log('Filtered questions:', filteredQuestions);
-      questions = filteredQuestions;
-      showQuestions();
-    } else {
-      console.error('Failed to fetch questions data');
-    }
-  } catch (error) {
-    console.error('An error occurred while fetching questions data', error);
-  }
-};
-
-const showQuestions = async (slideIndex) => {
-  const response = await fetchQuestions(slideIndex);
-  const questionsContainer = document.getElementById('questions-container');
-  const questionsList = questionsContainer.querySelector('.questions-list');
-
-  questionsList.innerHTML = '';
-
-  if (response && response.length > 0) {
-    response.forEach((question) => {
-      const listItem = document.createElement('li');
-      listItem.textContent = question.fields.Question;
-      questionsList.appendChild(listItem);
-    });
-  }
-
-  questionsContainer.classList.add('show');
-};
-
-
-
-
 
 const updateSlides = () => {
   const container = document.getElementById('slides-container');
