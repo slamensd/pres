@@ -188,3 +188,10 @@ textarea {
     height: auto;
   }
 }
+
+.question-label {
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 120%;
+}
