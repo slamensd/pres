@@ -120,15 +120,17 @@ const showPreviousSlide = (index) => {
 };
 
 const showQuestions = () => {
-  const questionsContainer = document.getElementById('questions-container');
-  questionsContainer.innerHTML = '';
-  questions.forEach((questionData) => {
-    const questionEntry = createQuestionEntry(questionData);
-    questionsContainer.appendChild(questionEntry);
-  });
-  questionsContainer.style.maxHeight = 'calc(100vh - 250px)';
-  questionsContainer.style.overflowY = 'auto';
-};
+    const questionsContainer = document.getElementById('questions-container');
+    questionsContainer.innerHTML = '';
+    questions.forEach((questionData) => {
+      const questionEntry = createQuestionEntry(questionData.question);
+      questionsContainer.appendChild(questionEntry);
+    });
+    questionsContainer.style.maxHeight = 'calc(100vh - 250px)';
+    questionsContainer.style.overflowY = 'auto';
+  };
+  
+
 
 const fetchSlides = async () => {
   try {
